@@ -13,23 +13,36 @@ def ytrue(t):
 def main():
     a = 1
     b = 2
-    h =  10**(-np.linspace(5,10,5))
+    h =  10**(-1*np.linspace(1,8,8))
     ya = 2
     yh = np.zeros(np.size(h))
+    t = np.linspace(a,b,100)
     print(f"h val {h}")
-    for i in range(6):
+    plt.plot(t,ytrue(t))
+    legend = []
+    for i in range(8):
+
+
         [t,y] = EulerExplicit(f,a,b,h[i],ya)
         yh[i] = y[-1]
 
         print(f"Counter: {i}")
         print(f"yh Val: {yh[i]}")
+        print(f"Error at final point for h={h[i]} is {abs(yh[i]-ytrue(t[-1]))}")
+
+        plt.plot(t,y)
+        legend += str(h[i])
+    plt.xlabel("t")
+    plt.ylabel("y")
+    plt.legend(legend)
+    plt.show()
     
         
     #Error this and the log I think.
 
     
 
-    plt.plot(h,abs(yh - ytrue(b*np.ones(6))))
+    plt.plot(h,abs(yh - ytrue(b*np.ones(8))))
     plt.xlabel("time")
     plt.ylabel("y value (NonLog)")
     plt.yscale("log")
